@@ -29,13 +29,11 @@ import androidx.compose.ui.unit.dp
 fun AnimatedVisibility() {
     // Estado para controlar la visibilidad
     var visible by remember { mutableStateOf(false) }
-    val density = LocalDensity.current
+
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Botón para alternar la visibilidad
         Button(onClick = { visible = !visible }) {
@@ -52,9 +50,11 @@ fun AnimatedVisibility() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
-                    .background(Color(0xFF6A7AD5))
-            )
+                    .background(Color(0xFF6A7AD5)),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("AnimatedVisibility implementacion", color = Color.White)
+            }
         }
-        Text("AnimatedVisibility implemntacion")
     }
 }
