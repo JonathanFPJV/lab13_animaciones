@@ -29,6 +29,8 @@ fun AppAnimacion() {
             AnimatedVisibility()  // Cambiado a AnimatedVisibilityExample para que coincida
             Spacer(modifier = Modifier.height(16.dp))
             ColorAnimation()  // Aquí se llama directamente a ColorAnimation
+            Spacer(modifier = Modifier.height(16.dp))
+            SizeAndPositionAnimation()  // Aquí se llama directamente a SizeAndPositionAnimation
         }
     }
 }
