@@ -1,10 +1,13 @@
 package com.example.lab13_animaciones
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -49,6 +52,12 @@ fun SizeAndPositionAnimation() {
         targetValue = if (expanded) 200.dp else 100.dp,
         label = "boxHeight"
     )
+    // Animación de color del Box
+    val boxColor by animateColorAsState(
+        targetValue = if (expanded) Color(0xFFEA557E) else Color(0xFF1976D2),
+        animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing),
+        label = "BoxColorAnimation"
+    )
 
     // Ancho del cuadro, alternando entre 100.dp y fillMaxWidth
     val boxModifier = if (expanded) Modifier.fillMaxWidth() else Modifier.width(100.dp)
@@ -60,9 +69,9 @@ fun SizeAndPositionAnimation() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Button(onClick = { expanded = !expanded }) {
-            Text(text = "Mover y Cambiar Tamaño")
-        }
+
+        Text(text = "Mover y Cambiar Tamaño")
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -73,7 +82,7 @@ fun SizeAndPositionAnimation() {
                 .then(boxModifier) // Ancho inicial o expandido
                 .height(boxHeight) // Ajuste de la altura
                 .animateContentSize() // Animar el cambio de tamaño suavemente
-                .background(Color(0xFF6A7AD5))
+                .background(boxColor)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
