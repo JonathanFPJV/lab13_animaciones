@@ -38,7 +38,11 @@ import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
 
 @Composable
-fun SizeAndPositionAnimation() {
+fun SizeAndPositionAnimation(
+    textColor: Color,
+    boxColorExpanded: Color,
+    boxColorCollapsed: Color
+) {
     var expanded by remember { mutableStateOf(false) }
 
     // Offset para mover el cuadro desde la izquierda hacia el centro
@@ -54,7 +58,7 @@ fun SizeAndPositionAnimation() {
     )
     // Animación de color del Box
     val boxColor by animateColorAsState(
-        targetValue = if (expanded) Color(0xFFEA557E) else Color(0xFF1976D2),
+        targetValue = if (expanded) boxColorExpanded else boxColorCollapsed,
         animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing),
         label = "BoxColorAnimation"
     )
@@ -70,8 +74,8 @@ fun SizeAndPositionAnimation() {
         verticalArrangement = Arrangement.Center
     ) {
 
-        Text(text = "Mover y Cambiar Tamaño")
-
+        Text(text = "Mover y Cambiar Tamaño",
+            color = textColor)
 
         Spacer(modifier = Modifier.height(16.dp))
 

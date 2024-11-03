@@ -34,17 +34,15 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AppAnimacion() {
-    // Estado para alternar entre modo claro y oscuro
     var isLightMode by remember { mutableStateOf(true) }
-    // Color de fondo que cambia entre claro y oscuro
+    val colors = if (isLightMode) LightColors else DarkColors
+
+    // Color de fondo animado que cambia entre claro y oscuro
     val backgroundColor by animateColorAsState(
-        targetValue = if (isLightMode) Color.White else Color(0xFF303030),
+        targetValue = colors.backgroundColor,
         animationSpec = tween(durationMillis = 600),
         label = "BackgroundColorAnimation"
     )
-
-    // Color del texto para modo claro y oscuro
-    val textColor = if (isLightMode) Color.Black else Color.White
     var isButtonVisible by remember { mutableStateOf(true) }
     Box(
         modifier = Modifier
@@ -62,7 +60,7 @@ fun AppAnimacion() {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text("Modo Claro/Oscuro", color = textColor)
+                Text("Modo Claro/Oscuro", color = colors.textColor)
                 Spacer(modifier = Modifier.width(8.dp))
                 Switch(checked = !isLightMode, onCheckedChange = { isLightMode = !isLightMode })
             }
@@ -79,7 +77,11 @@ fun AppAnimacion() {
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
-            SizeAndPositionAnimation()  // Aquí se llama directamente a SizeAndPositionAnimation
+            SizeAndPositionAnimation(
+                textColor = colors.textColor,
+                boxColorExpanded = colors.boxColorExpanded,
+                boxColorCollapsed = colors.boxColorCollapsed
+            )  // Aquí se llama directamente a SizeAndPositionAnimation
             Spacer(modifier = Modifier.height(16.dp))
             AnimatedVisibility()  // Cambiado a AnimatedVisibilityExample para que coincida
             Spacer(modifier = Modifier.height(16.dp))
